@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Watch Video</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-900 text-white font-sans">
+
+<!-- Navbar -->
+<nav class="bg-gray-800 p-4 flex items-center justify-between sticky top-0 z-10">
+    <div class="flex items-center space-x-4">
+        <h1 class="text-2xl font-bold text-red-600">VideoApp</h1>
+    </div>
+    <div class="flex-grow max-w-2xl mx-4">
+        <input type="text" placeholder="Search videos..." class="w-full bg-gray-700 text-white rounded-full py-2 px-4 focus:outline-none focus:ring-2 focus:ring-red-600">
+    </div>
+    <div class="flex items-center space-x-4">
+        <img src="https://via.placeholder.com/40" alt="Profile" class="w-10 h-10 rounded-full">
+    </div>
+</nav>
+
+<!-- Main Video Section -->
+<main class="p-4 max-w-6xl mx-auto">
+    <div class="w-full mb-4">
+        <video class="w-full rounded-lg" controls autoplay>
+            <source src="{{ url }}" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+    </div>
+
+    <div class="flex justify-between items-start flex-col md:flex-row">
+        <div class="flex-1">
+            <h2 class="text-2xl font-semibold mb-2">{{ video_title or "Sample Video Title" }}</h2>
+            <p class="text-gray-400 text-sm mb-4">Uploaded by 
+                <span class="text-white font-bold">{{ uploader }}</span>
+            </p>
+
+            <div class="flex items-center space-x-4 mb-4">
+                <form action="/like" id="likeForm" method="post">
+                    <button type="submit" name="url" value="{{ url }}" class="flex items-center space-x-1 text-white hover:text-green-400">
+                        👍 <span>{{ likes  | length}}</span>
+                    </button>
+                </form>
+
+                <form action="/dislike" method="post">
+                    <button type="submit" name="url" value="{{ url }}" class="flex items-center space-x-1 text-white hover:text-red-400">
+                        👎 <span>{{ dislikes }} Dislikes</span>
+                    </button>
+                </form>
+            </div>
+
+            <p class="mb-6 text-sm text-gray-300">
+                {{ description or "No description provided." }}
+            </p>
+
+            {% if uploader in subscribed %}
+                <p class="text-green-400 font-medium mb-4">Subscribed ✓</p>
+            {% else %}
+                <form action="/subscribe" method="post" class="mb-4">
+                    <button type="submit" name="user_subbed" value="{{ uploader }}" class="bg-red-600 hover:bg-red-700 px-4 py-2 rounded font-medium text-sm">Subscribe</button>
+                </form>
+            {% endif %}
+
+            <form action="/profile" method="post">
+                <button type="submit" name="account_name" value="{{ uploader }}" class="bg-gray-700 hover:bg-gray-600 px-4 py-2 rounded font-medium text-sm">View Profile</button>
+            </form>
+        </div>
+    </div>
+</main>
+
+</body>
+
+</html>

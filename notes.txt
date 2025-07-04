@@ -1,0 +1,37 @@
+signup  done 
+login with   jwt tokens              DONE 
+uploading videos            Done
+watch videos. done
+views.          
+likes.          DONE
+comments.DONE
+subscribe.      DONE 
+
+
+
+
+
+usr click like, i get his username, video url, and account.
+submit all thre columns in likes table
+now for fetching, 
+    
+
+
+
+user will click subscribe, subscriber username from jwt token, channel he subscribed. 
+i will store, user and user in subscribe table.
+
+for displaying , i will display total count of subscribers.
+
+
+
+
+
+
+
+
+
+
+
+
+
